@@ -1,6 +1,5 @@
 {
-  "key.hotkeybind.open_gui": "Open Macros",
-  "key.categories.hotkeybind": "Macros",
+  "key.hotkeybind.open_gui": "Open Macros UI",
   "key.hotkeybind.config.category.main": "Main",
   "key.hotkeybind.config.sub.macro": "Macro",
   "key.hotkeybind.config.macro.key": "Key",
@@ -10,5 +9,6 @@
   "key.hotkeybind.config.macrotype": "Type of Macro",
   "key.hotkeybind.config.delay": "Delay (Ignore for Single/Display)",
   "key.hotkeybind.config.add": "Add",
-  "key.hotkeybind.config.remove": "Remove"
+  "key.hotkeybind.config.remove": "Remove",
+  "key.categories.hotkeybind": "Macros"
 }
