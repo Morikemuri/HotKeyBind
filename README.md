@@ -12,7 +12,7 @@ Bind any command or chat message to a key (with optional modifier key).
 - **DisplayOnly** - opens chat pre-filled with the command
 
 ## Install
-Drop  into .  
+Drop  into mods folder.  
 Requires Forge 1.16.5.
 
 ## Config
