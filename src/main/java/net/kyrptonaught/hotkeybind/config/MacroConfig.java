@@ -1,52 +1,40 @@
 package net.kyrptonaught.hotkeybind.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import net.kyrptonaught.hotkeybind.HotKeybindMod;
-import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.*;
-import java.nio.file.Path;
+import java.nio.file.*;
 
-// ================================================================
-// [CMDKEYBIND::MCFG] :: Gson config loader/saver
-// file: .minecraft/config/hotkeybind.json
-// ================================================================
 public class MacroConfig {
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
-    // LOAD: read config from disk, replace in-memory state if valid
     public static void load() {
-        File f = cfgFile();
-        if (!f.exists()) {
-            save(); // INIT: write defaults on first run
-            return;
-        }
-        try (Reader r = new FileReader(f)) {
-            ConfigOptions loaded = GSON.fromJson(r, ConfigOptions.class);
-            if (loaded != null) HotKeybindMod.config = loaded;
-        } catch (Exception e) {
-            HotKeybindMod.logger.warn("[hotkeybind] load failed: {}", e.getMessage());
-        }
-    }
-
-    // SAVE: flush current config to disk
-    public static void save() {
-        File f = cfgFile();
         try {
-            f.getParentFile().mkdirs();
-            try (Writer w = new FileWriter(f)) {
-                GSON.toJson(HotKeybindMod.config, w);
+            Path dir = Paths.get("config", "hotkeybind");
+            Files.createDirectories(dir);
+            Path file = dir.resolve("macros.json");
+            if (Files.exists(file)) {
+                String json = new String(Files.readAllBytes(file));
+                HotKeybindMod.config = new Gson().fromJson(json, ConfigOptions.class);
+                if (HotKeybindMod.config == null) HotKeybindMod.config = new ConfigOptions();
+            } else {
+                HotKeybindMod.config = new ConfigOptions();
+                HotKeybindMod.config.macros.add(new ConfigOptions.ConfigMacro());
+                save();
             }
         } catch (Exception e) {
-            HotKeybindMod.logger.warn("[hotkeybind] save failed: {}", e.getMessage());
+            HotKeybindMod.logger.error("Failed to load config", e);
+            HotKeybindMod.config = new ConfigOptions();
         }
     }
 
-    // PATH: config/hotkeybind.json in the FML config dir
-    private static File cfgFile() {
-        Path dir = FMLPaths.CONFIGDIR.get();
-        return dir.resolve("hotkeybind.json").toFile();
+    public static void save() {
+        try {
+            Path file = Paths.get("config", "hotkeybind", "macros.json");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Files.write(file, gson.toJson(HotKeybindMod.config).getBytes());
+        } catch (Exception e) {
+            HotKeybindMod.logger.error("Failed to save config", e);
+        }
     }
 }
