@@ -11,7 +11,7 @@ public class GuiKeyHandler {
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) return;
-        if (HotKeybindMod.OPEN_GUI_KEY.consumeClick()) {
+        if (HotKeybindMod.OPEN_GUI_KEY != null && HotKeybindMod.OPEN_GUI_KEY.consumeClick()) {
             mc.setScreen(new MacrosScreen(null));
         }
     }
