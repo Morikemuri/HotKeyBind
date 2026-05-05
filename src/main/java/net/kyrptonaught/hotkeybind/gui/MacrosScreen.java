@@ -170,6 +170,8 @@ public class MacrosScreen extends Screen {
                 // Команда
                 y=drawSubRow(ms,mx,my,zones,y,"\u041a\u043e\u043c\u0430\u043d\u0434\u0430",valX,valW,rstX,RW,null,null);
                 if (cmdField!=null) { cmdField.x=valX; cmdField.y=y-RH-RG; cmdField.setWidth(valW); }
+                { final int cy=y-RH-RG; final TextFieldWidget cf=cmdField;
+                  zones.add(new Zone(rstX,cy,RW,RH,()->{ if(cf!=null) cf.setValue("/"); })); }
 
                 // Клавиша
                 String kl = (listening==1)? "> \u041d\u0430\u0436\u043c\u0438\u0442\u0435 <" : m.keyName;
@@ -277,7 +279,7 @@ public class MacrosScreen extends Screen {
     @Override public boolean mouseClicked(double mx, double my, int btn) {
         if (listening>0 && btn!=0 && sExpanded>=0) {
             ConfigOptions.ConfigMacro m=HotKeybindMod.config.macros.get(sExpanded);
-            String name=InputMappings.Type.MOUSE.getOrCreate(btn).getName();
+            String name="key.mouse."+(btn+1);
             if(listening==1) m.keyName=name; else m.keyModName=name;
             listening=0; return true;
         }
