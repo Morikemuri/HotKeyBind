@@ -5,7 +5,7 @@
 ## Features
 - Bind any key (with optional modifier) to any command like `/ah`, `/home`, `/say hello`
 - Multiple macro types: **SingleUse**, **Repeating**, **Delayed**, **ToggledRepeating**, **DisplayOnly**
-- Clean custom GUI — open with **`** (grave accent) by default
+- Clean custom GUI - open with **`** (grave accent) by default
 - Config saved to `config/hotkeybind/macros.json`
 - Works on any server, client-side only
 
@@ -33,4 +33,4 @@ Requires **Forge 1.16.5**.
 ```
 ./gradlew build
 ```
-Output: `build/libs/hotkeybind-1.5.3-forge-1.16.5.jar`
+Output: `build/libs/hotkeybind-1.5.2-forge-1.16.5.jar`
